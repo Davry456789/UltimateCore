@@ -1,0 +1,4 @@
+name: UltimateCore
+version: '${project.version}'
+main: ru.renix.ultimatecore.UltimateCore
+api-version: '1.16'
