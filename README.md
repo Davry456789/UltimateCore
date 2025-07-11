@@ -3,21 +3,24 @@
 На данный момент содержит в себе только:
 
 - CommandApi
-- TextFormatter (немой)
+- TextFormatter 
 
-#CommandApi 
-`@Command(name = "pivo", perm = "bar.admin", desc = "Выдаёт священный напиток", aliases = {"beer", "пиво"}, onlyPlayers = true
-)
-public class TestCommand extends AbstractCommand {
+#CommandApi
+
+
+    @Command(name = "pivo", perm = "bar.admin", desc = "Выдаёт священный напиток", aliases = {"beer", "пиво"}, onlyPlayers = true)
+    public class TestCommand extends AbstractCommand {
     @Override
     public void execute(CommandSender sender, String[] args) {
-        Player p = (Player) sender;
-        if (args.length == 1) {
-            p.getInventory().addItem(new ItemStack(Material.POTION));
-            p.sendMessage("На алкаш, выпей за здоровье!");
+        if (sender instanceof Player player) {
+            player.getInventory().addItem(new ItemStack(Material.POTION));
+            player.sendMessage("На алкаш, выпей за здоровье!");
         }
     }
+
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] arg) {
-        return List.of("test");
-    }`
+    public List<String> tabExec(@NotNull CommandSender sender, @NotNull String[] args) {
+        return List.of("ник");
+    }
+    }
+

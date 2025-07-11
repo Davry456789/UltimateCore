@@ -5,14 +5,15 @@ import java.util.regex.Pattern;
 
 public class TextFormatter {
 
+
+    //Взял на просторах интернета !!!
     private static final Pattern HEX_PATTERN = Pattern.compile("&#([a-fA-F\\d]{6})");
 
-    public  String colorize(String message) {
-        if (message == null || message.isEmpty()) {
-            return message;
-        }
-        final Matcher matcher = HEX_PATTERN.matcher(message);
-        final StringBuilder builder = new StringBuilder(message.length() + 32);
+    public static String colorize(String message) {
+        if (message == null || message.isEmpty()) return message;
+
+        Matcher matcher = HEX_PATTERN.matcher(message);
+        StringBuilder builder = new StringBuilder(message.length() + 32);
         while (matcher.find()) {
             String group = matcher.group(1);
             matcher.appendReplacement(builder,
@@ -32,17 +33,14 @@ public class TextFormatter {
 
     public static String translateAlternateColorCodes(char altColorChar, String textToTranslate) {
         final char[] b = textToTranslate.toCharArray();
-
         for (int i = 0, length = b.length - 1; i < length; ++i) {
             if (b[i] == altColorChar && isValidColorCharacter(b[i + 1])) {
                 b[i++] = COLOR_CHAR;
                 b[i] |= 0x20;
             }
         }
-
         return new String(b);
     }
-
 
     private static boolean isValidColorCharacter(char c) {
         return switch (c) {
