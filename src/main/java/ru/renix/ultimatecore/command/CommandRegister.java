@@ -4,9 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.NotNull;
 import ru.renix.ultimatecore.command.annotation.Command;
 
@@ -18,7 +16,6 @@ public class CommandRegister {
 
     public static void registerCommands(JavaPlugin plugin, AbstractCommand... commands) {
         try {
-            // Рефлексия - боль, но без нее нихуя
             final Field cmdMapField = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             cmdMapField.setAccessible(true);
             CommandMap cmdMap = (CommandMap) cmdMapField.get(Bukkit.getServer());
@@ -27,26 +24,23 @@ public class CommandRegister {
                 Command meta = cmd.meta();
                 if (meta == null) continue;
 
-                // букитовская команда
-                BukkitCommand bukkitCmd = new BukkitCommand(meta.name(), meta.desc(), meta.usage(), Arrays.asList(meta.aliases())) {
+
+                BukkitCommand bukkitCmd = new BukkitCommand(
+                        meta.name(),
+                        meta.desc(),
+                        meta.usage(),
+                        Arrays.asList(meta.aliases())) {
                     @Override
-                    public boolean execute(CommandSender sender, String alias, String[] args) {
-                        if (!meta.perm().isEmpty() && !sender.hasPermission(meta.perm())) {
-                            sender.sendMessage("У тебя прав нету!!! XDD");
-                            return true;
-                        }
-                        if (meta.onlyPlayers() && !(sender instanceof Player)) {
-                            sender.sendMessage("Только игроки, бро!");
-                            return true;
-                        }
-                        cmd.execute(sender, args);
-                        return true;
+                    public boolean execute(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
+                        return cmd.onCommand(sender, this, alias, args);
                     }
                     @Override
-                    public List<String> tabComplete(CommandSender sender, String alias, String[] args) {
-                        return cmd.onTabComplete(sender, args);
+                    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
+                        return cmd.onTabComplete(sender, this, alias, args);
                     }
                 };
+
+                bukkitCmd.setPermission(meta.perm());
                 cmdMap.register(plugin.getName(), bukkitCmd);
             }
 

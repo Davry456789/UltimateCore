@@ -1,32 +1,30 @@
 package ru.renix.ultimatecore.command.implement;
 
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import ru.renix.ultimatecore.command.AbstractCommand;
 import ru.renix.ultimatecore.command.annotation.Command;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-@Command(name = "sex", perm = "core.sex", desc = "гей секс для настоящих таиров", aliases = {"гейсексстаиром", "гейсекс"})
 
+@Command(name = "pivo", perm = "bar.admin", desc = "Выдаёт священный напиток", aliases = {"beer", "пиво"}, onlyPlayers = true
+)
 public class TestCommand extends AbstractCommand {
     @Override
-    public void execute(@NotNull CommandSender sender, @NotNull String[] args) {
-        Player player = (Player) sender;
-
-        if (args.length == 1) {
-            player.sendMessage("Таир гей");
-
+    public void execute(CommandSender sender, String[] args) {
+        if (sender instanceof Player player) {
+            player.getInventory().addItem(new ItemStack(Material.POTION));
+            player.sendMessage("На алкаш, выпей за здоровье!");
         }
-
-
-
     }
 
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] arg) {
-        return List.of("гейсекс");
+    public List<String> tabExec(@NotNull CommandSender sender, @NotNull String[] args) {
+        return List.of("ник");
     }
+
 }
