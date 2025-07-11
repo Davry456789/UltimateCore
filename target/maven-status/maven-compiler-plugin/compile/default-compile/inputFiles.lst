@@ -1,0 +1,7 @@
+/home/renix/IdeaProjects/UltimateCore/src/main/java/ru/renix/ultimatecore/command/AbstractCommand.java
+/home/renix/IdeaProjects/UltimateCore/src/main/java/ru/renix/ultimatecore/utils/TextFormatter.java
+/home/renix/IdeaProjects/UltimateCore/src/main/java/ru/renix/ultimatecore/command/implement/TairCommand.java
+/home/renix/IdeaProjects/UltimateCore/src/main/java/ru/renix/ultimatecore/command/implement/TestCommand.java
+/home/renix/IdeaProjects/UltimateCore/src/main/java/ru/renix/ultimatecore/command/annotation/Command.java
+/home/renix/IdeaProjects/UltimateCore/src/main/java/ru/renix/ultimatecore/UltimateCore.java
+/home/renix/IdeaProjects/UltimateCore/src/main/java/ru/renix/ultimatecore/command/CommandRegister.java

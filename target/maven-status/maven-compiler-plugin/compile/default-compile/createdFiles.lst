@@ -1,0 +1,8 @@
+ru/renix/ultimatecore/UltimateCore.class
+ru/renix/ultimatecore/command/annotation/Command.class
+ru/renix/ultimatecore/command/implement/TairCommand.class
+ru/renix/ultimatecore/command/CommandRegister$1.class
+ru/renix/ultimatecore/command/AbstractCommand.class
+ru/renix/ultimatecore/utils/TextFormatter.class
+ru/renix/ultimatecore/command/CommandRegister.class
+ru/renix/ultimatecore/command/implement/TestCommand.class
