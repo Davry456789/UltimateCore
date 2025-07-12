@@ -9,10 +9,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Command {
-    String name(); // ручками пишем название команды
-    String perm() default "piskaopkacmd"; // дефолтные права - пушка
-    String desc() default "Cho kago?"; // описание для ленивых
-    String usage() default "/command [sex]"; // пример использования
-    String[] aliases() default {}; // алиасы команды
-    boolean onlyPlayers() default false; // флаг для консоли
+    String name(); 
+    String perm() default "piskaopkacmd";
+    String desc() default "Cho kago?"; 
+    String usage() default "/command [sex]";
+    String[] aliases() default {}; 
+    boolean onlyPlayers() default false; 
 }
