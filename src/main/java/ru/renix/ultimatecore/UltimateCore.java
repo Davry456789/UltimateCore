@@ -10,16 +10,10 @@ public final class UltimateCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
         Bukkit.getLogger().info("Плагин включился");
         CommandRegister.registerCommands(this, new TairCommand(), new TestCommand());
-
-        // Plugin startup logic
-
     }
-
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
 }
