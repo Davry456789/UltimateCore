@@ -23,24 +23,7 @@ public class CommandRegister {
             for (AbstractCommand cmd : commands) {
                 Command meta = cmd.meta();
                 if (meta == null) continue;
-
-
-                BukkitCommand bukkitCmd = new BukkitCommand(
-                        meta.name(),
-                        meta.desc(),
-                        meta.usage(),
-                        Arrays.asList(meta.aliases())) {
-                    @Override
-                    public boolean execute(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
-                        return cmd.onCommand(sender, this, alias, args);
-                    }
-                    @Override
-                    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
-                        return cmd.onTabComplete(sender, this, alias, args);
-                    }
-                };
-
-                bukkitCmd.setPermission(meta.perm());
+                BukkitCommand bukkitCmd = getBukkitCommand(cmd, meta);
                 cmdMap.register(plugin.getName(), bukkitCmd);
             }
 
@@ -48,6 +31,26 @@ public class CommandRegister {
             plugin.getLogger().severe("ОШИБКА РЕГИСТРАЦИИ КОМАНД: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private static @NotNull BukkitCommand getBukkitCommand(AbstractCommand cmd, Command meta) {
+        BukkitCommand bukkitCmd = new BukkitCommand(
+                meta.name(),
+                meta.desc(),
+                meta.usage(),
+                Arrays.asList(meta.aliases())) {
+            @Override
+            public boolean execute(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
+                return cmd.onCommand(sender, this, alias, args);
+            }
+            @Override
+            public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
+                return cmd.onTabComplete(sender, this, alias, args);
+            }
+        };
+
+        bukkitCmd.setPermission(meta.perm());
+        return bukkitCmd;
     }
 
 }
